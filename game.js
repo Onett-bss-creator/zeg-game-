@@ -84,3 +84,101 @@ const player = {
     mana: 100,
     maxMana: 100
 };
+
+document.addEventListener("keydown", (e) => {
+    // Jeśli gra się skończyła, reaguj tylko na klawisz R (restart)
+    if (gameState !== "PLAYING") {
+        if (e.key.toLowerCase() === "r") {
+            resetGame();
+        }
+        return;
+    }
+
+    keys[e.key.toLowerCase()] = true;
+
+    if (e.code === "Space") {
+        castSpell();
+    }
+});
+
+document.addEventListener("keyup", (e) => {
+    keys[e.key.toLowerCase()] = false;
+});
+
+function resetGame() {
+    currentLevel = 0;
+    player.hp = 100;
+    player.mana = 100;
+    gameState = "PLAYING";
+    loadLevel(0);
+}
+
+function loadLevel(id) {
+    walls = [];
+    enemies = [];
+    projectiles = [];
+    hpPotions = [];
+    manaPotions = [];
+
+    exitDoor = null;
+    keyItem = null;
+
+    hasKey = false;
+    keyStatus.textContent = "Nie";
+
+    const map = levels[id];
+
+    for (let r = 0; r < map.length; r++) {
+        for (let c = 0; c < map[r].length; c++) {
+            const tile = map[r][c];
+            const x = c * tileSize;
+            const y = r * tileSize;
+
+            if (tile === "#") {
+                walls.push({ x, y });
+            }
+
+            if (tile === "P") {
+                player.x = x + 12;
+                player.y = y + 12;
+            }
+
+            if (tile === "E") {
+                enemies.push({
+                    x: x + 12,
+                    y: y + 12,
+                    size: 40,
+                    hp: 30 + id * 25,
+                    speed: 1 + id
+                });
+            }
+
+            if (tile === "X") {
+                exitDoor = { x, y };
+            }
+
+            if (tile === "K") {
+                keyItem = { x, y };
+            }
+
+            if (tile === "H") {
+                hpPotions.push({ x, y });
+            }
+
+            if (tile === "M") {
+                manaPotions.push({ x, y });
+            }
+        }
+    }
+
+    levelText.textContent = id + 1;
+}
+
+function rectCollision(a, b, w = tileSize, h = tileSize) {
+    return (
+        a.x < b.x + w &&
+        a.x + a.size > b.x &&
+        a.y < b.y + h &&
+        a.y + a.size > b.y
+    );
+}
