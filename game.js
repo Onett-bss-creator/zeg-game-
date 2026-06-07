@@ -73,3 +73,14 @@ let exitDoor = null;
 let keyItem = null;
 let hasKey = false;
 let lastDirectional = "right";
+
+const player = {
+    x: 0,
+    y: 0,
+    size: 40,
+    speed: 3,
+    hp: 100,
+    maxHp: 100,
+    mana: 100,
+    maxMana: 100
+};
