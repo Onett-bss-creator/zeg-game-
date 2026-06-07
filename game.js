@@ -19,3 +19,57 @@ hpPotionTexture.src = "hp_poton.png";
 
 const manaPotionTexture = new Image();
 manaPotionTexture.src = "mana_potion.png"
+
+const levels = [
+    [
+        "###############",
+        "#P..H..#..M..X#",
+        "#.###..#.###..#",
+        "#...#......#..#",
+        "###.#####..#..#",
+        "#....K.#......#",
+        "#..#...#..E...#",
+        "#..#####......#",
+        "#.............#",
+        "###############"
+    ],
+    [
+        "###############",
+        "#P......#....X#",
+        "#.#####.#.###.#",
+        "#.....#.#.....#",
+        "###.#.#.#####.#",
+        "#...#.#...K...#",
+        "#.#.#.#####.#.#",
+        "#.#...H.E...#.#",
+        "#.......E..M..#",
+        "###############"
+    ],
+    [
+        "###############",
+        "#P.H..#..E...X#",
+        "#.###.#.###.#.#",
+        "#...#.#.....#.#",
+        "###.#.#####.#.#",
+        "#...#..K..#.#.#",
+        "#.#######.#.#.#",
+        "#..E.M.E..#...#",
+        "#....E....E...#",
+        "###############"
+    ]
+];
+let currentLevel = 0;
+let gameState = "PLAYING";
+
+let walls = [];
+let enemies = [];
+let projectiles = [];
+let keys = {};
+
+let hpPotions = [];
+let manaPotions = [];
+
+let exitDoor = null;
+let keyItem = null;
+let hasKey = false;
+let lastDirectional = "right";
