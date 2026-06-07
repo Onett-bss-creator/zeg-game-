@@ -1,21 +1,53 @@
-# zeg-game-Prolog i Świat Gry:
-Głęboko pod ziemią, daleko pod traktami Hallownest, leży Rdzawe Kłącze – żywy, stale zmieniający się labirynt wewnątrz korzeni prastarego drzewa. Kiedyś korzenie pompowały ciepłą, złotą żywicę, a korytarze tętniły życiem małych żuków i mchów.
-Wszystko zamarło, gdy w kłącze wdarła się Rdza – metaliczna zaraza, która paraliżuje żywe tkanki i zamienia owady w nieruchome, miedziane posągi. Królowa, Matka Pąków, poświęciła się, by ratować poddanych: odcięła zakażone korytarze, zamknęła całą Rdzę we własnym sercu i zapadła w wieczny sen w samym centrum świata. Labirynt zatrzymał się w bezruchu, stając się zardzewiałą, śmiertelną pułapką.
- Bohater i Mechanika Labiryntu
-Gracz steruje Iskrą – malutkim, ożywionym odłamkiem kowalskiego młota, który odpadł podczas ostatniej próby ratowania królestwa. Jako ostatnie źródło ciepła budzisz się na ślepym końcu zewnętrznego kręgu. Twoim zadaniem jest odnaleźć drogę do środka labiryntu i stopić źródło zarazy.
-Broń: Ostrze z Drzazgi – zaostrzony kawałek twardej kory, służący do szybkich cięć.
-Zasób (Oliwa): Zamiast Duszy zbierasz Oliwę z pokonanych maszyn i zardzewiałych wrogów. Służy do leczenia stawów Iskry oraz wywoływania ognistych wybuchów.
-Nawigacja: Iskra zostawia na ścianach labiryntu świecące, tłuste ślady, co pozwala graczowi orientować się w krętych, powtarzalnych korytarzach.
- Struktura Labiryntu (Trzy Kręgi)
-Krąg I: Miedziane Przejście (Zewnętrzne tunele)
-Długie korytarze pełne porzuconych narzędzi kowalskich, zardzewiałych kół zębatych i ślepych zaułków. Patrolują je bezmózgie, miedziane kukły owadów.
-Strażnik Bramy: Przejścia do głębszych warstw pilnuje Zardzewiały Wartownik – potężny żuk, który wbił się w wąskie gardło tunelu i zardzewiał w tej pozycji. Pokonanie go uwalnia energię, która daje Iskrze Zryw (Dash), niezbędny do przeskakiwania rdzawych kolców w dalszej części gry.
-Krąg II: Sokowe Ogrody (Skomplikowany środek)
-Najbardziej zagmatwana część labiryntu, gdzie drogi krzyżują się w pionie i poziomie. Strumienie żywicy zastygły w bursztynowe ściany, tworząc iluzje i fałszywe przejścia.
-Bezpieczna Strefa: W ukrytym, wolnym od Rdzy zakątku siedzi Sierotka Mchu – jedyny ocalały robaczek schowany w suchym liściu. Sprzedaje proste amulety z nasion i ostrzega przed utratą orientacji w ścianach.
-Krąg III: Rdzawe Serce (Centrum Labiryntu)
-Ciasne, duszne i wąskie korytarze pokryte ostrymi, pomarańczowo-brązowymi wykwitami metalu. Powietrze pachnie żelazem. Ścieżki zbiegają się w jednej, centralnej komnacie komorowej.
-Finałowe Starcie: W sercu labiryntu śpi Zardzewiała Matka. Rdza całkowicie oplotła jej gigantyczne ciało, kontrolując je i zmuszając do agresywnej obrony. Gracz musi niszczyć metalowe pnącza, unikając ataków dystansowych zarażonej królowej.
- Finał Opowieści
-Po zniszczeniu miedzianych więzów, Rdza próbuje uciec z ciała Matki, by ostatecznie skazić resztki korzeni. Iskra wbija swoje ostrze bezpośrednio w rdzeń plagi i zużywa całą zebraną Oliwę, wywołując potężne tarcie i wewnętrzny pożar.
-Temperatura rozchodzi się po całym labiryncie jak fala uderzeniowa. Rdza topi się, spływając w głąb ziemi jako niegroźna, płynna miedź. Korzenie drzewa – uwolnione z uścisku metalu – ponownie ruszają, zmieniając układ labiryntu i otwierając wyjścia na światło dzienne. Zamrożeni mieszkańcy budzą się z Wielkiego Zastoju, a Iskra, oddawszy całe swoje ciepło, gaśnie jako bohater, który przywrócił życie całemu królestwu.
+# Dokumentacja Projektowa: Gra „Labirynt RPG”
+
+## 1. Opis Projektu
+**„Labirynt zeg-game”** to dwuwymiarowa gra zręcznościowo-logiczna, uruchamiana bezpośrednio w przeglądarce internetowej. Gracz wciela się w postać maga, którego zadaniem jest przetrwanie w niebezpiecznym labiryncie, eliminacja przeciwników za pomocą czarów, zbieranie zasobów (mikstur), odnalezienie klucza oraz dotarcie do drzwi wyjściowych prowadzących do kolejnych etapów. Gra kończy się pełnym sukcesem po ukończeniu wszystkich dostępnych poziomów lub porażką, gdy punkty życia bohatera spadną do zera.
+
+---
+
+## 2. Struktura Plików Projektu
+Projekt składa się z plików źródłowych (HTML, CSS, JS) oraz grafik reprezentujących tekstury obiektów w grze:
+
+├── index.html       
+├── style.css        
+├── game.js          
+├── sciana.png       
+├── exit.png         
+├── hp_potion.png    
+└── mana_potion.png 
+
+---
+
+## 3. Mechanika Gry i Elementy Świata
+Gra bazuje na siatce kafelków (ang. *tiles*) o rozmiarze **64x64 piksele**. Plansza ma stałe wymiary **960x640 pikseli** (15 kolumn na 10 wierszy).
+
+### Legendy Mapy (Układ Poziomów)
+Poziomy definiowane są za pomocą tablic tekstowych w kodzie JavaScript. Każdy znak odpowiada jednemu kafelkowi:
+
+| Znak | Element | Opis mechaniczny |
+| :---: | :--- | :--- |
+| `#` | **Ściana** | Blokuje ruch gracza, przeciwników oraz pocisków. |
+| `P` | **Gracz** | Miejsce startowe bohatera na danym poziomie. |
+| `E` | **Przeciwnik** | Potwór dążący do zadania obrażeń graczowi. Skaluje się wraz z numerem poziomu. |
+| `K` | **Klucz** | Przedmiot niezbędny do otwarcia drzwi wyjściowych. |
+| `X` | **Wyjście** | Drzwi kończące poziom (wymagają posiadania klucza). |
+| `H` | **Mikstura HP** | Odnawia natychmiastowo 30 punktów zdrowia. |
+| `M` | **Mikstura Many** | Odnawia natychmiastowo 40 punktów many. |
+
+---
+
+## 4. Instrukcja Obsługi i Sterowanie
+Interfejs gry reaguje na klawiaturę w czasie rzeczywistym.
+
+* **Ruch postaci:** Klawisze `W`, `S`, `A`, `D` lub **Strzałki** (Góra, Dół, Lewo, Prawo).
+* **Atak (Rzucenie czaru):** Klawisz `Spacja` (koszt: 10 pkt Many). Pocisk leci w stronę, w którą gracz ostatnio się poruszał.
+* **Restart gry:** Klawisz `R` (aktywny wyłącznie na ekranie wygranej `GAME_WON` lub przegranej `GAME_OVER`).
+
+---
+
+## 5. Analiza Techniczna Kodu (`game.js`)
+
+### Główna Pętla Gry
+Logika gry napędzana jest przez natywną funkcję przeglądarki `requestAnimationFrame(loop)`, która stale wywołuje dwie kluczowe funkcje:
+1. `update()` – przelicza pozycje obiektów, sprawdza kolizje, aktualizuje paski stanu.
+2. `draw()` – czyszcząca okno `canvas` i rysująca zaktualizowaną grafikę.
