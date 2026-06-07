@@ -292,3 +292,36 @@ function updateProjectiles() {
         }
     }
 }
+
+function updateEnemies() {
+    enemies.forEach(enemy => {
+        const dx = player.x - enemy.x;
+        const dy = player.y - enemy.y;
+
+        const dist = Math.hypot(dx, dy);
+
+        if (dist > 0) {
+            let oldX = enemy.x;
+            let oldY = enemy.y;
+
+            enemy.x += (dx / dist) * enemy.speed;
+            enemy.y += (dy / dist) * enemy.speed;
+
+            for (const wall of walls) {
+                if (rectCollision(enemy, wall)) {
+                    enemy.x = oldX;
+                    enemy.y = oldY;
+                }
+            }
+        }
+
+        if (
+            player.x < enemy.x + enemy.size &&
+            player.x + player.size > enemy.x &&
+            player.y < enemy.y + enemy.size &&
+            player.y + player.size > enemy.y
+        ) {
+            player.hp -= 0.15;
+        }
+    });
+}
