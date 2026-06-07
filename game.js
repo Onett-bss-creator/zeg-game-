@@ -351,3 +351,21 @@ function checkExit() {
         loadLevel(currentLevel);
     }
 }
+
+function checkPotions() {
+    
+    for (let i = hpPotions.length - 1; i >= 0; i--) {
+        if (rectCollision(player, hpPotions[i])) {
+            player.hp = Math.min(player.maxHp, player.hp + 30); // Przywraca 30 HP
+            hpPotions.splice(i, 1);
+        }
+    }
+
+    
+    for (let i = manaPotions.length - 1; i >= 0; i--) {
+        if (rectCollision(player, manaPotions[i])) {
+            player.mana = Math.min(player.maxMana, player.mana + 40); // Przywraca 40 Many
+            manaPotions.splice(i, 1);
+        }
+    }
+}
