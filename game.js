@@ -393,3 +393,82 @@ function update() {
     hpBar.style.width = player.hp + "%";
     manaBar.style.width = player.mana + "%";
 }
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    
+    for (const wall of walls) {
+        if (wallTexture.complete) {
+            ctx.drawImage(wallTexture, wall.x, wall.y, tileSize, tileSize);
+        } else {
+            ctx.fillStyle = "#666";
+            ctx.fillRect(wall.x, wall.y, tileSize, tileSize);
+            ctx.strokeStyle = "#999";
+            ctx.strokeRect(wall.x, wall.y, tileSize, tileSize);
+        }
+    }
+
+    
+    if (exitDoor) {
+        if (exitTexture.complete) {
+            ctx.drawImage(exitTexture, exitDoor.x, exitDoor.y, tileSize, tileSize);
+        } else {
+            ctx.fillStyle = "gold";
+            ctx.fillRect(exitDoor.x + 8, exitDoor.y + 8, tileSize - 16, tileSize - 16);
+            ctx.fillStyle = "black";
+            ctx.font = "18px Arial";
+            ctx.fillText("EXIT", exitDoor.x + 6, exitDoor.y + 38);
+        }
+    }
+
+    
+    hpPotions.forEach(potion => {
+        if (hpPotionTexture.complete) {
+            ctx.drawImage(hpPotionTexture, potion.x + 12, potion.y + 12, 40, 40);
+        } else {
+            ctx.fillStyle = "red";
+            ctx.fillRect(potion.x + 22, potion.y + 22, 20, 20);
+        }
+    });
+
+    
+    manaPotions.forEach(potion => {
+        if (manaPotionTexture.complete) {
+            ctx.drawImage(manaPotionTexture, potion.x + 12, potion.y + 12, 40, 40);
+        } else {
+            ctx.fillStyle = "blue";
+            ctx.fillRect(potion.x + 22, potion.y + 22, 20, 20);
+        }
+    });
+
+    
+    if (keyItem) {
+        ctx.fillStyle = "yellow";
+        ctx.beginPath();
+        ctx.arc(keyItem.x + 32, keyItem.y + 32, 15, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    
+    ctx.fillStyle = "lime";
+    ctx.fillRect(player.x, player.y, player.size, player.size);
+
+    
+    enemies.forEach(enemy => {
+        ctx.fillStyle = "crimson";
+        ctx.fillRect(enemy.x, enemy.y, enemy.size, enemy.size);
+        ctx.fillStyle = "red";
+        ctx.fillRect(enemy.x, enemy.y - 10, enemy.hp, 5);
+    });
+
+    
+    ctx.fillStyle = "cyan";
+    projectiles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+    });
+
+
+}
