@@ -1,11 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl-PL">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="author" content="niezgoda jarosław"
+    <title>Labirynt-Zeg_game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+<div id="ui">
+
+    <div>
+        <label>HP</label>
+        <div class="bar">
+            <div id="hpBar" class="hp"></div>
+        </div>
+    </div>
+
+    <div>
+        <label>Mana</label>
+        <div class="bar">
+            <div id="manaBar" class="mana"></div>
+        </div>
+    </div>
+
+    <div id="info">
+        Poziom: <span id="level">1</span>
+        <br>
+        Klucz: <span id="keyStatus">Nie</span>
+    </div>
+
+</div>
+
+<canvas id="game" width="960" height="640"></canvas>
+
+<script src="game.js"></script>
+
 </body>
 </html>
