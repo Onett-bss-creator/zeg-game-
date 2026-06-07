@@ -369,3 +369,27 @@ function checkPotions() {
         }
     }
 }
+
+function update() {
+    if (gameState !== "PLAYING") return; 
+
+    movePlayer();
+    updateEnemies();
+    updateProjectiles();
+
+    checkKey();
+    checkExit();
+    checkPotions(); 
+
+    player.mana += 0.03;
+
+    if (player.mana > player.maxMana) player.mana = player.maxMana;
+
+    if (player.hp <= 0) {
+        player.hp = 0;
+        gameState = "GAME_OVER"; 
+    }
+
+    hpBar.style.width = player.hp + "%";
+    manaBar.style.width = player.mana + "%";
+}
