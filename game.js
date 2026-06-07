@@ -336,3 +336,18 @@ function checkKey() {
         keyStatus.textContent = "Tak";
     }
 }
+
+function checkExit() {
+    if (!exitDoor || !hasKey) return;
+
+    if (rectCollision(player, exitDoor)) {
+        currentLevel++;
+
+        if (currentLevel >= levels.length) {
+            gameState = "GAME_WON"; // Aktywacja ekranu wygranej
+            return;
+        }
+
+        loadLevel(currentLevel);
+    }
+}
