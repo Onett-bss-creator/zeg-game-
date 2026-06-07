@@ -182,3 +182,113 @@ function rectCollision(a, b, w = tileSize, h = tileSize) {
         a.y + a.size > b.y
     );
 }
+
+function movePlayer() {
+    let oldX = player.x;
+    let oldY = player.y;
+
+    if (keys["w"] || keys["arrowup"]) {
+        player.y -= player.speed;
+        lastDirection = "up";
+    } else if (keys["s"] || keys["arrowdown"]) {
+        player.y += player.speed;
+        lastDirection = "down";
+    }
+
+    for (const wall of walls) {
+        if (rectCollision(player, wall)) {
+            player.y = oldY;
+            break;
+        }
+    }
+
+    if (keys["a"] || keys["arrowleft"]) {
+        player.x -= player.speed;
+        lastDirection = "left";
+    } else if (keys["d"] || keys["arrowright"]) {
+        player.x += player.speed;
+        lastDirection = "right";
+    }
+
+    for (const wall of walls) {
+        if (rectCollision(player, wall)) {
+            player.x = oldX;
+            break;
+        }
+    }
+}
+function castSpell() {
+    if (player.mana < 10) return;
+
+    player.mana -= 10;
+
+    let vx = 0;
+    let vy = 0;
+
+    switch (lastDirection) {
+        case "up":
+            vy = -8;
+            break;
+        case "down":
+            vy = 8;
+            break;
+        case "left":
+            vx = -8;
+            break;
+        case "right":
+            vx = 8;
+            break;
+    }
+
+    projectiles.push({
+        x: player.x + player.size / 2,
+        y: player.y + player.size / 2,
+        vx,
+        vy,
+        size: 8
+    });
+}
+
+function updateProjectiles() {
+    for (let i = projectiles.length - 1; i >= 0; i--) {
+        const p = projectiles[i];
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        let remove = false;
+
+        for (const wall of walls) {
+            if (
+                p.x > wall.x &&
+                p.x < wall.x + tileSize &&
+                p.y > wall.y &&
+                p.y < wall.y + tileSize
+            ) {
+                remove = true;
+            }
+        }
+
+        for (let j = enemies.length - 1; j >= 0; j--) {
+            const e = enemies[j];
+
+            if (
+                p.x > e.x &&
+                p.x < e.x + e.size &&
+                p.y > e.y &&
+                p.y < e.y + e.size
+            ) {
+                e.hp -= 20;
+                remove = true;
+
+                if (e.hp <= 0) {
+                    enemies.splice(j, 1);
+                }
+            }
+        }
+
+        if (remove) {
+            projectiles.splice(i, 1);
+        }
+    }
+}
