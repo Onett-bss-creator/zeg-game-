@@ -325,3 +325,14 @@ function updateEnemies() {
         }
     });
 }
+
+function checkKey() {
+    if (!keyItem || hasKey) return;
+
+    if (rectCollision(player, keyItem)) {
+        hasKey = true;
+        keyItem = null;
+
+        keyStatus.textContent = "Tak";
+    }
+}
