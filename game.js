@@ -470,5 +470,25 @@ function draw() {
         ctx.fill();
     });
 
+    if (gameState === "GAME_WON") {
+        ctx.fillStyle =  "rgba(0, 0, 0, 0.85)";
+        ctx.fillRect = (0, 0, canvas.width, canvas.height);
 
+        ctx.textAlign = "center";
+        
+        ctx.fillStyle = "gold";
+        ctx.font = "bold 50px Arial";
+        ctx.fillText("GRATULACJE!", canvas.width / 2, canvas.height / 2 - 30);
+
+        ctx.fillStyle = "white";
+        ctx.font = "24px Arial";
+        ctx.fillText("Ukończyłeś cały labirynt!", canvas.width / 2, canvas.height / 2 + 20);
+        
+        ctx.fillStyle = "#aaa";
+        ctx.font = "18px Arial";
+        ctx.fillText("Naciśnij 'R', aby zagrać ponownie", canvas.width / 2, canvas.height / 2 + 80);
+        
+        ctx.textAlign = "left";
+    }
+    
 }
