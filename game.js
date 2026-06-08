@@ -491,4 +491,36 @@ function draw() {
         ctx.textAlign = "left";
     }
     
+    if (gameState === "GAME_OVER") {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.85)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.textAlign = "center";
+        
+        ctx.fillStyle = "crimson";
+        ctx.font = "bold 50px Arial";
+        ctx.fillText("KONIEC GRY", canvas.width / 2, canvas.height / 2 - 30);
+
+        ctx.fillStyle = "white";
+        ctx.font = "24px Arial";
+        ctx.fillText("Zostałeś pokonany przez potwory.", canvas.width / 2, canvas.height / 2 + 20);
+        
+        ctx.fillStyle = "#aaa";
+        ctx.font = "18px Arial";
+        ctx.fillText("Naciśnij 'R', aby spróbować ponownie", canvas.width / 2, canvas.height / 2 + 80);
+        
+        ctx.textAlign = "left";
+    }
 }
+
+function loop() {
+    update();
+    draw();
+
+    requestAnimationFrame(loop);
+}
+
+wallTexture.onload = () => {
+    loadLevel(0);
+    loop();
+};
