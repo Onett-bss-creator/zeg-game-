@@ -72,7 +72,7 @@ let manaPotions = [];
 let exitDoor = null;
 let keyItem = null;
 let hasKey = false;
-let lastDirectional = "right";
+let lastDirection = "right";
 
 const player = {
     x: 0,
@@ -472,7 +472,7 @@ function draw() {
 
     if (gameState === "GAME_WON") {
         ctx.fillStyle =  "rgba(0, 0, 0, 0.85)";
-        ctx.fillRect = (0, 0, canvas.width, canvas.height);
+        ctx.fillRect (0, 0, canvas.width, canvas.height);
 
         ctx.textAlign = "center";
         
